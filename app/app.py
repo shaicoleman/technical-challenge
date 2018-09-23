@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 import sys
 import argparse
 import random
+import os
 
 from solver.solver import solver
 from flask import Flask, request
@@ -42,7 +43,8 @@ def crash():
 
 
 def main(args):
-    prometheus_server(args.monitor)
+    if ('LAMBDA_TASK_ROOT' not in os.environ):
+      prometheus_server(args.monitor)
 
     app.config.update({
         'input': args.input,

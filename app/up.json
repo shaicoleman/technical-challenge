@@ -1,0 +1,7 @@
+{
+  "name": "aylien-challenge",
+  "proxy": {
+    "command": "FLASK_APP=app.py python34 -m flask run --port $PORT",
+    "timeout": 3
+  }
+}
