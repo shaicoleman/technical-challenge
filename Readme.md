@@ -22,13 +22,23 @@ In the `app` directory you will see a small Python web service (`app.py`), a dep
 
 The application has a primary endpoint at `/v1/`. When you make calls to this endpoint, you can send a JSON string as the argument "input". The JSON string contains three keys, colors, costumers and demands.
 
-Examples:
+Examples API v1:
 
 http://0.0.0.0:8080/v1/?input={%22colors%22:1,%22customers%22:2,%22demands%22:[[1,1,1],[1,1,0]]}
 IMPOSSIBLE
 
 http://0.0.0.0:8080/v1/?input={%22colors%22:5,%22customers%22:3,%22demands%22:[[1,1,1],[2,1,0,2,0],[1,5,0]]}
 1 0 0 0 0
+
+Examples API v2:
+http://0.0.0.0:8080/v2/?colors=1&customers=2&demands=[[1,1,1],[1,1,0]]
+curl: `curl http://0.0.0.0:8080/v2/ -d colors=1 -d customers=2 -d demands='[[1,1,1],[1,1,0]]'`
+`{ "code": "IMPOSSIBLE", "message": "Impossible to find a solution" }`
+
+http://0.0.0.0:8080/v2/?colors=5&customers=3&demands=[[1,1,1],[2,1,0,2,0],[1,5,0]]
+curl: `curl http://0.0.0.0:8080/v2/ -d colors=5 -d customers=3 -d demands='[[1,1,1],[2,1,0,2,0],[1,5,0]]'`
+`{ "solution": [ 1, 0, 0, 0, 0 ] }`
+
 
 ## Limitations
 

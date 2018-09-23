@@ -1,10 +1,6 @@
 
 
-def solver(problem):
-    colors = problem.get("colors")
-    customers = problem.get("customers")
-    demands = problem.get("demands")
-
+def solver(colors, customers, demands):
     mattes = []
     glossy = {}
     for c in range(customers):
@@ -19,9 +15,9 @@ def solver(problem):
                 mattes[c].append(color - 1)
     solved, solution = start(colors, customers, mattes, glossy)
     if solved:
-        return " ".join(map(str, solution))
+        return solution
     else:
-        return "IMPOSSIBLE"
+        return None
 
 
 def check(solution, customers, mattes, glossy):

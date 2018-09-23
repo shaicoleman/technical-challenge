@@ -1,15 +1,30 @@
 Case #1: IMPOSSIBLE
+Case #1 (v2): { "code": "IMPOSSIBLE", "message": "Impossible to find a solution" }
 Case #2: 1 0 0 0 0
+Case #2 (v2): { "solution": [ 1, 0, 0, 0, 0 ] }
 Case #3: 1 0 1 0 0
+Case #3 (v2): { "solution": [ 1, 0, 1, 0, 0 ] }
 Case #4: 1 0 0 0 0
+Case #4 (v2): { "solution": [ 1, 0, 0, 0, 0 ] }
 Case #5: 1 0 0 0 0
+Case #5 (v2): { "solution": [ 1, 0, 0, 0, 0 ] }
 Case #6: IMPOSSIBLE
+Case #6 (v2): { "code": "IMPOSSIBLE", "message": "Impossible to find a solution" }
 Case #7: 1 1
+Case #7 (v2): { "solution": [ 1, 1 ] }
 Case #8: 0 0
+Case #8 (v2): { "solution": [ 0, 0 ] }
 Case #9: 1 1
+Case #9 (v2): { "solution": [ 1, 1 ] }
 Case #10: 0 0 0 1 1
+Case #10 (v2): { "solution": [ 0, 0, 0, 1, 1 ] }
 Case #11: 0 0 0 1 1
+Case #11 (v2): { "solution": [ 0, 0, 0, 1, 1 ] }
 Case #12: 1 1 1 1 1
+Case #12 (v2): { "solution": [ 1, 1, 1, 1, 1 ] }
 Case #13: 1 1 1 1 1
+Case #13 (v2): { "solution": [ 1, 1, 1, 1, 1 ] }
 Case #14: IMPOSSIBLE
+Case #14 (v2): { "code": "IMPOSSIBLE", "message": "Impossible to find a solution" }
 Case #15: IMPOSSIBLE
+Case #15 (v2): { "code": "IMPOSSIBLE", "message": "Impossible to find a solution" }

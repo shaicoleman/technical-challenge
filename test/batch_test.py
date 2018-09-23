@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 
 import sys
-import urllib.request
+import requests
 import os
-URL=os.environ.get('PAINTSHOP_URL', "0.0.0.0:8080/v1")
+import json
+import re
+URL=os.environ.get('PAINTSHOP_URL', "http://0.0.0.0:8080")
 
-def no_space_list(input_list):
-    return '['+','.join(map(str, input_list))+']'
+def squish_whitespace(str):
+    return re.sub(r"\s+", ' ', str.strip())
 
+def delete_whitespace(str):
+    return re.sub(r"\s+", '', str)
 
 def process_content(content):
     output = []
@@ -16,15 +20,26 @@ def process_content(content):
     for c in range(testcases):
         number_of_colors = int(content[0])
         number_of_customers = int(content[1])
-        customer_demand = []
+        demands = []
         for l in range(number_of_customers):
             demand = list(map(int, content[l+2].split()))
-            customer_demand.append(demand)
-        no_space_demands = '['+','.join(map(no_space_list, customer_demand))+']'
-        solution = urllib.request.urlopen("http://{}/?input={{\"colors\":{},\"customers\":{},\"demands\":{}}}".format(URL, number_of_colors, number_of_customers, no_space_demands)).read()
-        output.append("Case #{}: {}".format(c + 1, solution.decode('utf-8')))
+            demands.append(demand)
+        params = { 'colors': number_of_colors,
+                   'customers': number_of_customers,
+                   'demands': demands }
+        input_params = { 'input': delete_whitespace(json.dumps(params)) }
+        solution = requests.get(URL + "/v1/", params=input_params).content.decode("utf-8")
+        output.append("Case #{}: {}".format(c + 1, solution))
+
+        demands_v2 = delete_whitespace(json.dumps(demands))
+        params_v2 = { 'colors': number_of_colors,
+                      'customers': number_of_customers,
+                      'demands': demands_v2 }
+        solution_v2 = requests.get(URL + "/v2/", params=params_v2).content.decode("utf-8")
+        output.append("Case #{} (v2): {}".format(c + 1, squish_whitespace(solution_v2)))
+
         content = content[number_of_customers + 2:]
-    return output	
+    return output
 
 def main(input_file):
     with open(input_file) as f:

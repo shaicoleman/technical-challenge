@@ -8,7 +8,7 @@ import argparse
 import random
 
 from solver.solver import solver
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import json
 from prometheus_client import Counter, start_wsgi_server as prometheus_server
 
@@ -27,9 +27,25 @@ requests_total = Counter('requests_total', 'Total number of requests')
 @app.route('/v1/')
 def index():
     input_val = json.loads(request.args.get("input"))
-    result = solver(input_val)
-    return result
+    colors=input_val.get("colors")
+    customers=input_val.get("customers")
+    demands=input_val.get("demands")
+    solution = solver(colors, customers, demands)
+    if solution:
+      return " ".join(map(str, solution))
+    else:
+      return "IMPOSSIBLE"
 
+@app.route('/v2/', methods=['GET', 'POST'])
+def index_v2():
+    colors = int(request.values.get("colors"))
+    customers = int(request.values.get("customers"))
+    demands = json.loads(request.values.get("demands"))
+    solution = solver(colors, customers, demands)
+    if solution:
+      return jsonify({ 'solution': solution })
+    else:
+      return jsonify({ 'code': 'IMPOSSIBLE', 'message': 'Impossible to find a solution' })
 
 # To help with testing this endpoint will cause the app to crash
 # every time it is called
